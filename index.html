@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Random YouTube!</title>
+    <meta name="title" content="Random YouTube!">
+    <meta name="description" content="Watch some random YouTube video!">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <link rel="canonical" href="https://willnode.github.io/random-youtube/" />
+    <script defer data-domain="willnode.github.io" src="https://stat.wellosoft.net/js/plausible.js"></script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://willnode.github.io/random-youtube/">
+    <meta property="og:title" content="Random YouTube!">
+    <meta property="og:description" content="Watch some random YouTube video!">
+    <meta property="og:image" content="https://willnode.github.io/random-youtube/assets/cover.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://willnode.github.io/random-youtube/">
+    <meta property="twitter:title" content="Random YouTube!">
+    <meta property="twitter:description" content="Watch some random YouTube video!">
+    <meta property="twitter:image" content="https://willnode.github.io/random-youtube/assets/cover.png">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 16px);
+        }
+        button {
+            background-color: #27842b;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+
+        @media (prefers-color-scheme: dark) {
+             body   { background:  #333; color: white; }
+             a {
+                 color: yellowgreen;
+             }
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Random YouTube</h1>
+    <p>Watch some random YouTube video!</p>
+    <img onclick="roll('_blank')" src="./assets/android-chrome-192x192.png" height="128" alt="">
+    <button onclick="roll('_blank')">Give me new one!</button>
+    <p>Hint: you can bookmark <a href="?auto">this link</a> to automatically go to random videos on YouTube!</p>
+    <p><a href="https://github.com/willnode/random-youtube"><img height="28" alt="GitHub Repo stars" src="https://img.shields.io/github/stars/willnode/random-youtube?label=Star%20on%20GitHub&style=for-the-badge"></a></p>
+    <script>
+        const youtubeId = 'srcf:H4sIAAAAAAAAAB3IQQqAMAxE0du4KXin6owl1DoQU4q3F7J7_1ze1_1dTYyqcZ82BGLIugp99ucC3nrQoinxOwSF71gUbyBxlMeqtLAAAA';
+        const params = new URLSearchParams(window.location.search);
+        const level = parseInt(params.get('level') || '2');
+        const levelrandom = parseInt(params.get('levelrandom') || '2');
+
+        function composeYoutubeUrl (q) {
+            var eq = encodeURIComponent(`allinurl: ${q} watch`);
+            var es = encodeURIComponent(youtubeId);
+            return `https://www.google.com/search?source=hp&biw=&bih=&q=${eq}&tbs=${es}&btnI=I%27m+Feeling+Lucky&gbv=1&tbm=vid`
+        }
+
+        function roll(mode) {
+            var l = Math.trunc((Math.random() * levelrandom) + level);
+            var url = composeYoutubeUrl(makeid(l));
+            window.open(url, mode).focus();
+        }
+
+        if (window.location.search.indexOf('auto') > -1) {
+            roll('_self');
+        }
+
+        function makeid(length) {
+            var result = '';
+            var characters = '_-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() *
+                    charactersLength));
+            }
+            return result;
+        }
+
+    </script>
+</body>
+
+</html>
